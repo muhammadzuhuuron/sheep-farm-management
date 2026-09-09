@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sheep Farm Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>🐑 Sheep Farm Management System</h1>
+                <p>Complete Farm Inventory & Financial Recording</p>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+            <button class="nav-btn active" data-tab="dashboard">Dashboard</button>
+            <button class="nav-btn" data-tab="inventory">Inventory</button>
+            <button class="nav-btn" data-tab="finances">Finances</button>
+            <button class="nav-btn" data-tab="health">Health Records</button>
+            <button class="nav-btn" data-tab="reports">Reports</button>
+        </nav>
+
+        <!-- Dashboard Tab -->
+        <section id="dashboard" class="tab-content active">
+            <h2>Farm Overview</h2>
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <h3>Total Sheep</h3>
+                    <p class="stat-number" id="totalSheep">0</p>
+                    <span class="stat-label">Animals</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Value</h3>
+                    <p class="stat-number" id="totalValue">$0</p>
+                    <span class="stat-label">Estimated</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Income</h3>
+                    <p class="stat-number income" id="totalIncome">$0</p>
+                    <span class="stat-label">YTD</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Expenses</h3>
+                    <p class="stat-number expense" id="totalExpenses">$0</p>
+                    <span class="stat-label">YTD</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Net Profit</h3>
+                    <p class="stat-number" id="netProfit">$0</p>
+                    <span class="stat-label">YTD</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Males</h3>
+                    <p class="stat-number" id="totalMales">0</p>
+                    <span class="stat-label">Count</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Females</h3>
+                    <p class="stat-number" id="totalFemales">0</p>
+                    <span class="stat-label">Count</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Lambs</h3>
+                    <p class="stat-number" id="totalLambs">0</p>
+                    <span class="stat-label">Count</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Inventory Tab -->
+        <section id="inventory" class="tab-content">
+            <h2>Sheep Inventory Management</h2>
+            
+            <div class="form-section">
+                <h3>Add New Sheep</h3>
+                <form id="sheepForm" class="form-grid">
+                    <input type="text" id="sheepId" placeholder="Sheep ID/Tag Number" required>
+                    <input type="text" id="sheepName" placeholder="Name (optional)">
+                    <select id="sheepType" required>
+                        <option value="">Select Type</option>
+                        <option value="Ram">Ram (Male)</option>
+                        <option value="Ewe">Ewe (Female)</option>
+                        <option value="Lamb">Lamb</option>
+                    </select>
+                    <input type="date" id="sheepDob" placeholder="Date of Birth" required>
+                    <input type="number" id="sheepWeight" placeholder="Weight (kg)" step="0.1">
+                    <input type="number" id="sheepValue" placeholder="Estimated Value ($)" step="0.01" required>
+                    <select id="sheepBreed" required>
+                        <option value="">Select Breed</option>
+                        <option value="Merino">Merino</option>
+                        <option value="Dorper">Dorper</option>
+                        <option value="Hampshire">Hampshire</option>
+                        <option value="Suffolk">Suffolk</option>
+                        <option value="Corriedale">Corriedale</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <select id="sheepStatus" required>
+                        <option value="Active">Active</option>
+                        <option value="Pregnant">Pregnant</option>
+                        <option value="Nursing">Nursing</option>
+                        <option value="Injured">Injured</option>
+                        <option value="Sold">Sold</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Add Sheep</button>
+                </form>
+            </div>
+
+            <div class="filter-section">
+                <h3>Filter Inventory</h3>
+                <div class="filter-controls">
+                    <select id="filterStatus">
+                        <option value="">All Status</option>
+                        <option value="Active">Active</option>
+                        <option value="Pregnant">Pregnant</option>
+                        <option value="Nursing">Nursing</option>
+                        <option value="Injured">Injured</option>
+                        <option value="Sold">Sold</option>
+                    </select>
+                    <select id="filterType">
+                        <option value="">All Types</option>
+                        <option value="Ram">Ram</option>
+                        <option value="Ewe">Ewe</option>
+                        <option value="Lamb">Lamb</option>
+                    </select>
+                    <select id="filterBreed">
+                        <option value="">All Breeds</option>
+                        <option value="Merino">Merino</option>
+                        <option value="Dorper">Dorper</option>
+                        <option value="Hampshire">Hampshire</option>
+                        <option value="Suffolk">Suffolk</option>
+                        <option value="Corriedale">Corriedale</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input type="search" id="searchSheep" placeholder="Search by ID or Name...">
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table id="sheepTable" class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Breed</th>
+                            <th>Age</th>
+                            <th>Weight (kg)</th>
+                            <th>Value ($)</th>
+                            <th>Status</th>
+                            <th>DOB</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="empty-state">
+                            <td colspan="10">No sheep added yet</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Finances Tab -->
+        <section id="finances" class="tab-content">
+            <h2>Financial Management</h2>
+
+            <div class="finance-grid">
+                <div class="form-section">
+                    <h3>Record Income</h3>
+                    <form id="incomeForm" class="form-vertical">
+                        <select id="incomeType" required>
+                            <option value="">Select Income Type</option>
+                            <option value="Wool Sale">Wool Sale</option>
+                            <option value="Meat Sale">Meat Sale</option>
+                            <option value="Breeding Stock">Breeding Stock Sale</option>
+                            <option value="Milk Sale">Milk Sale</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <input type="number" id="incomeAmount" placeholder="Amount ($)" step="0.01" required>
+                        <input type="date" id="incomeDate" required>
+                        <input type="text" id="incomeDescription" placeholder="Description (e.g., sold 5 lambs)">
+                        <button type="submit" class="btn btn-success">Record Income</button>
+                    </form>
+                </div>
+
+                <div class="form-section">
+                    <h3>Record Expense</h3>
+                    <form id="expenseForm" class="form-vertical">
+                        <select id="expenseType" required>
+                            <option value="">Select Expense Type</option>
+                            <option value="Feed">Feed & Grain</option>
+                            <option value="Veterinary">Veterinary Care</option>
+                            <option value="Medication">Medication</option>
+                            <option value="Shelter">Shelter Maintenance</option>
+                            <option value="Equipment">Equipment & Tools</option>
+                            <option value="Labor">Labor</option>
+                            <option value="Transport">Transportation</option>
+                            <option value="Utilities">Utilities</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <input type="number" id="expenseAmount" placeholder="Amount ($)" step="0.01" required>
+                        <input type="date" id="expenseDate" required>
+                        <input type="text" id="expenseDescription" placeholder="Description">
+                        <button type="submit" class="btn btn-danger">Record Expense</button>
+                    </form>
+                </div>
+            </div>
+
+            <h3>Financial History</h3>
+            <div class="finance-tabs">
+                <button class="finance-tab-btn active" data-finance-tab="all">All Transactions</button>
+                <button class="finance-tab-btn" data-finance-tab="income">Income</button>
+                <button class="finance-tab-btn" data-finance-tab="expense">Expenses</button>
+            </div>
+
+            <div class="table-responsive">
+                <table id="financialTable" class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th>Balance</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="empty-state">
+                            <td colspan="7">No transactions recorded</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Health Records Tab -->
+        <section id="health" class="tab-content">
+            <h2>Health Records & Vaccinations</h2>
+
+            <div class="form-section">
+                <h3>Add Health Record</h3>
+                <form id="healthForm" class="form-grid">
+                    <select id="healthSheepId" required>
+                        <option value="">Select Sheep</option>
+                    </select>
+                    <input type="date" id="healthDate" required>
+                    <select id="healthType" required>
+                        <option value="">Select Type</option>
+                        <option value="Vaccination">Vaccination</option>
+                        <option value="Treatment">Treatment</option>
+                        <option value="Check-up">Check-up</option>
+                        <option value="Birth">Birth</option>
+                        <option value="Death">Death</option>
+                    </select>
+                    <input type="text" id="healthDescription" placeholder="Details (vaccine name, illness, etc.)" required>
+                    <input type="number" id="healthCost" placeholder="Cost ($)" step="0.01">
+                    <textarea id="healthNotes" placeholder="Additional notes"></textarea>
+                    <button type="submit" class="btn btn-primary">Add Record</button>
+                </form>
+            </div>
+
+            <div class="table-responsive">
+                <table id="healthTable" class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Sheep ID</th>
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Cost ($)</th>
+                            <th>Notes</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="empty-state">
+                            <td colspan="8">No health records</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Reports Tab -->
+        <section id="reports" class="tab-content">
+            <h2>Financial & Operational Reports</h2>
+
+            <div class="reports-grid">
+                <div class="report-card">
+                    <h3>Monthly Income</h3>
+                    <div class="chart-container">
+                        <canvas id="incomeChart"></canvas>
+                    </div>
+                </div>
+                <div class="report-card">
+                    <h3>Monthly Expenses</h3>
+                    <div class="chart-container">
+                        <canvas id="expenseChart"></canvas>
+                    </div>
+                </div>
+                <div class="report-card">
+                    <h3>Expense Categories</h3>
+                    <div class="chart-container">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+                <div class="report-card">
+                    <h3>Sheep Type Distribution</h3>
+                    <div class="chart-container">
+                        <canvas id="typeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="export-section">
+                <h3>Export Data</h3>
+                <div class="export-buttons">
+                    <button id="exportInventory" class="btn btn-primary">Export Inventory (CSV)</button>
+                    <button id="exportFinances" class="btn btn-primary">Export Finances (CSV)</button>
+                    <button id="exportHealth" class="btn btn-primary">Export Health Records (CSV)</button>
+                    <button id="printReport" class="btn btn-secondary">Print Report</button>
+                </div>
+            </div>
+
+            <div class="summary-section">
+                <h3>Year-to-Date Summary</h3>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <span>Total Income:</span>
+                        <strong id="summaryIncome">$0</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Total Expenses:</span>
+                        <strong id="summaryExpenses">$0</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Net Profit/Loss:</span>
+                        <strong id="summaryProfit">$0</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Profit Margin:</span>
+                        <strong id="summaryMargin">0%</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Edit Sheep</h2>
+            <form id="editForm" class="form-grid">
+                <input type="hidden" id="editId">
+                <input type="text" id="editSheepId" placeholder="Sheep ID/Tag Number" required>
+                <input type="text" id="editSheepName" placeholder="Name (optional)">
+                <select id="editSheepType" required>
+                    <option value="">Select Type</option>
+                    <option value="Ram">Ram (Male)</option>
+                    <option value="Ewe">Ewe (Female)</option>
+                    <option value="Lamb">Lamb</option>
+                </select>
+                <input type="date" id="editSheepDob" required>
+                <input type="number" id="editSheepWeight" placeholder="Weight (kg)" step="0.1">
+                <input type="number" id="editSheepValue" placeholder="Estimated Value ($)" step="0.01" required>
+                <select id="editSheepBreed" required>
+                    <option value="">Select Breed</option>
+                    <option value="Merino">Merino</option>
+                    <option value="Dorper">Dorper</option>
+                    <option value="Hampshire">Hampshire</option>
+                    <option value="Suffolk">Suffolk</option>
+                    <option value="Corriedale">Corriedale</option>
+                    <option value="Other">Other</option>
+                </select>
+                <select id="editSheepStatus" required>
+                    <option value="Active">Active</option>
+                    <option value="Pregnant">Pregnant</option>
+                    <option value="Nursing">Nursing</option>
+                    <option value="Injured">Injured</option>
+                    <option value="Sold">Sold</option>
+                </select>
+                <div class="modal-buttons">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="button" class="btn btn-secondary" id="deleteBtn">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
