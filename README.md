@@ -2,7 +2,31 @@
 
 A complete web-based solution for managing sheep farm inventory, finances, and health records. Built with HTML, CSS, and JavaScript with local storage persistence.
 
-## Features
+**Available Languages / Bahasa Tersedia:**
+- 🇬🇧 **English** - `index.html`
+- 🇮🇩 **Indonesian (Bahasa Indonesia)** - `index_id.html`
+
+---
+
+## Quick Start / Mulai Cepat
+
+### English Version
+```bash
+# Open in browser
+index.html
+```
+
+### Indonesian Version (Versi Bahasa Indonesia)
+```bash
+# Buka di browser
+index_id.html
+```
+
+Both versions use the same `script.js` and `styles.css` files.
+
+---
+
+## Features / Fitur Utama
 
 ### 📊 Dashboard
 - Real-time overview of farm statistics
@@ -58,90 +82,89 @@ A complete web-based solution for managing sheep farm inventory, finances, and h
 - **Chart.js** - Data visualization
 - **LocalStorage API** - Data persistence
 
-## Installation
+## Installation / Instalasi
 
-1. Clone the repository:
+### Method 1: Direct File Access
+Simply open `index.html` (English) or `index_id.html` (Indonesian) in your browser.
+
+### Method 2: Local Server
 ```bash
+# Clone the repository
 git clone https://github.com/muhammadzuhuuron/sheep-farm-management.git
 cd sheep-farm-management
-```
 
-2. Open `index.html` in a modern web browser:
-```bash
-# Using Python
+# Using Python 3
 python -m http.server 8000
-# Then visit http://localhost:8000
 
-# Or simply double-click index.html
+# Using Python 2
+python -m SimpleHTTPServer 8000
+
+# Using Node.js (if installed)
+npx http-server
+
+# Then visit:
+# English: http://localhost:8000/index.html
+# Indonesian: http://localhost:8000/index_id.html
 ```
 
-## Usage Guide
+## File Structure / Struktur File
 
-### Adding a Sheep
-1. Navigate to the **Inventory** tab
-2. Fill in the form with sheep details:
-   - Sheep ID/Tag Number (required)
-   - Name (optional)
-   - Type (Ram, Ewe, or Lamb)
-   - Date of Birth
-   - Weight (kg)
-   - Estimated Value ($)
-   - Breed
-   - Current Status
-3. Click "Add Sheep"
+```
+sheep-farm-management/
+├── index.html              # English version
+├── index_id.html           # Indonesian version (Versi Bahasa Indonesia)
+├── styles.css              # Shared styling
+├── script.js               # Shared JavaScript functionality
+├── README.md               # English documentation
+├── README_ID.md            # Indonesian documentation (Dokumentasi Bahasa Indonesia)
+└── .gitignore
+```
 
-### Recording Finances
-1. Go to **Finances** tab
-2. Use either "Record Income" or "Record Expense" form
-3. Select category, amount, date, and description
-4. Click the appropriate button
+## Usage Guide / Panduan Penggunaan
 
-### Health Tracking
-1. Navigate to **Health Records** tab
-2. Select a sheep from the dropdown
-3. Enter health event details
-4. Specify type (Vaccination, Treatment, Check-up, Birth, Death)
-5. Add cost and notes if applicable
-6. Submit the form
+### Adding a Sheep / Menambah Domba
+1. Navigate to the **Inventory** tab / Buka tab **Inventaris**
+2. Fill in the form with sheep details / Isi formulir dengan detail domba
+3. Click "Add Sheep" / Klik "Tambah Domba"
 
-### Viewing Reports
-1. Click on **Reports** tab
-2. View interactive charts for:
-   - Monthly income trends
-   - Monthly expense trends
-   - Expense categories breakdown
-   - Sheep type distribution
-3. Check year-to-date summary
-4. Export or print reports
+### Recording Finances / Mencatat Keuangan
+1. Go to **Finances** tab / Buka tab **Keuangan**
+2. Use either "Record Income" or "Record Expense" / Gunakan "Catat Pendapatan" atau "Catat Pengeluaran"
+3. Fill in details and submit / Isi detail dan kirim
 
-### Filtering & Searching
-- Use dropdown filters to filter by status, type, or breed
-- Use the search box to find sheep by ID or name
-- Switch between All/Income/Expense tabs in finances section
+### Health Tracking / Pelacakan Kesehatan
+1. Navigate to **Health Records** tab / Buka tab **Catatan Kesehatan**
+2. Select a sheep and enter health event details / Pilih domba dan masukkan detail acara kesehatan
+3. Submit the form / Kirim formulir
 
-## Data Structure
+### Viewing Reports / Melihat Laporan
+1. Click on **Reports** tab / Klik tab **Laporan**
+2. View interactive charts and summaries / Lihat grafik interaktif dan ringkasan
+3. Export or print reports / Ekspor atau cetak laporan
 
-### Sheep Object
+## Data Structure / Struktur Data
+
+### Sheep Object / Objek Domba
 ```javascript
 {
   id: timestamp,
   sheepId: "TAG-001",
   name: "Fluffy",
-  type: "Ewe", // Ram, Ewe, or Lamb
+  type: "Ewe",
   dob: "2022-03-15",
   weight: 45.5,
   value: 250.00,
   breed: "Merino",
-  status: "Active", // Active, Pregnant, Nursing, Injured, Sold
+  status: "Active",
   dateAdded: ISO8601 timestamp
 }
 ```
 
-### Financial Record Object
+### Financial Record Object / Objek Catatan Keuangan
 ```javascript
 {
   id: timestamp,
-  type: "Income", // Income or Expense
+  type: "Income",
   category: "Wool Sale",
   amount: 150.00,
   date: "2024-01-15",
@@ -150,7 +173,7 @@ python -m http.server 8000
 }
 ```
 
-### Health Record Object
+### Health Record Object / Objek Catatan Kesehatan
 ```javascript
 {
   id: timestamp,
@@ -166,109 +189,109 @@ python -m http.server 8000
 }
 ```
 
-## Local Storage
+## Local Storage / Penyimpanan Lokal
 
 All data is stored in browser's localStorage:
-- `sheepData` - Sheep inventory
-- `financialData` - Financial transactions
-- `healthData` - Health records
+- `sheepData` - Sheep inventory / Inventaris domba
+- `financialData` - Financial transactions / Transaksi keuangan
+- `healthData` - Health records / Catatan kesehatan
 
-Data persists across browser sessions. To clear data, open browser DevTools and run:
+To clear data, open browser DevTools and run:
 ```javascript
 localStorage.clear();
 ```
 
-## Features in Detail
+## Supported Categories / Kategori yang Didukung
 
-### Sheep Breeds Supported
+### Sheep Breeds / Ras Domba
 - Merino
 - Dorper
 - Hampshire
 - Suffolk
 - Corriedale
-- Other
+- Other / Lainnya
 
-### Income Categories
-- Wool Sale
-- Meat Sale
-- Breeding Stock Sale
-- Milk Sale
-- Other
+### Income Categories / Kategori Pendapatan
+- Wool Sale / Penjualan Bulu
+- Meat Sale / Penjualan Daging
+- Breeding Stock Sale / Penjualan Stok Bibit
+- Milk Sale / Penjualan Susu
+- Other / Lainnya
 
-### Expense Categories
-- Feed & Grain
-- Veterinary Care
-- Medication
-- Shelter Maintenance
-- Equipment & Tools
-- Labor
-- Transportation
-- Utilities
-- Other
+### Expense Categories / Kategori Pengeluaran
+- Feed & Grain / Pakan & Bijian
+- Veterinary Care / Perawatan Hewan
+- Medication / Obat-obatan
+- Shelter Maintenance / Perbaikan Kandang
+- Equipment & Tools / Peralatan & Alat
+- Labor / Tenaga Kerja
+- Transportation / Transportasi
+- Utilities / Utilitas
+- Other / Lainnya
 
-### Health Event Types
-- Vaccination
-- Treatment
-- Check-up
-- Birth
-- Death
+### Health Event Types / Jenis Acara Kesehatan
+- Vaccination / Vaksinasi
+- Treatment / Pengobatan
+- Check-up / Pemeriksaan
+- Birth / Kelahiran
+- Death / Kematian
 
-## Browser Compatibility
+## Browser Compatibility / Kompatibilitas Browser
 
 - Chrome 80+
 - Firefox 75+
 - Safari 13+
 - Edge 80+
 
-## Performance
+## Performance / Performa
 
 - Optimized for up to 1000+ sheep records
 - Real-time filtering and searching
 - Efficient chart rendering
 - Smooth animations and transitions
 
-## Responsive Design
+## Responsive Design / Desain Responsif
 
 - Desktop optimized (1400px max-width)
 - Tablet friendly
 - Mobile responsive layout
 - Touch-friendly buttons and controls
 
-## Keyboard Shortcuts
+## Troubleshooting / Pemecahan Masalah
 
-- Tab through form fields for quick data entry
-- Enter to submit forms
-- Escape to close modals
+### Data Not Saving / Data Tidak Tersimpan
+- Check if localStorage is enabled in browser / Periksa apakah localStorage diaktifkan
+- Clear browser cache and reload / Hapus cache browser dan reload
+- Check browser storage quota / Periksa kuota penyimpanan browser
 
-## Data Backup
+### Charts Not Displaying / Grafik Tidak Ditampilkan
+- Ensure Chart.js loads from CDN (internet required) / Pastikan Chart.js dimuat dari CDN
+- Check browser console for errors / Periksa console browser untuk error
+- Refresh the page / Refresh halaman
 
-To backup your data:
+### Missing Sheep in Dropdown / Domba Hilang di Dropdown
+- Add sheep to inventory first / Tambah domba ke inventaris terlebih dahulu
+- Refresh the page to sync dropdown / Refresh halaman untuk menyinkronkan dropdown
+
+## Keyboard Shortcuts / Shortcut Keyboard
+
+- **Tab** - Navigate through form fields / Navigasi antar field formulir
+- **Enter** - Submit forms / Kirim formulir
+- **Escape** - Close modals / Tutup modal
+
+## Data Backup & Restore / Backup & Restore Data
+
+### Backup
 1. Open browser DevTools (F12)
 2. Go to Console tab
 3. Run: `copy(localStorage.getItem('sheepData'))`
 4. Paste into a text file and save
 
-To restore:
+### Restore
 1. Open DevTools Console
 2. Run: `localStorage.setItem('sheepData', 'YOUR_COPIED_DATA')`
 
-## Troubleshooting
-
-### Data Not Saving
-- Check if localStorage is enabled in browser
-- Clear browser cache and reload
-- Check browser storage quota
-
-### Charts Not Displaying
-- Ensure Chart.js loads from CDN (internet required)
-- Check browser console for errors
-- Refresh the page
-
-### Missing Sheep in Dropdown
-- Add sheep to inventory first
-- Refresh the page to sync dropdown
-
-## Future Enhancements
+## Future Enhancements / Peningkatan Masa Depan
 
 - Backend database integration (Firebase, MongoDB)
 - User authentication and multi-farm support
@@ -281,17 +304,19 @@ To restore:
 - QR code scanning for sheep identification
 - API integration for market prices
 
-## License
+## License / Lisensi
 
 This project is open source and available under the MIT License.
 
-## Contributing
+## Contributing / Kontribusi
 
 Contributions are welcome! Please feel free to submit pull requests or open issues for bugs and feature requests.
 
-## Support
+## Support / Dukungan
 
-For issues or questions, please open a GitHub issue or contact the developer.
+For issues or questions / Untuk masalah atau pertanyaan:
+- Open a GitHub issue / Buka issue GitHub
+- Contact the developer / Hubungi developer
 
 ## Changelog
 
@@ -302,7 +327,20 @@ For issues or questions, please open a GitHub issue or contact the developer.
 - Interactive dashboard and reports
 - CSV export functionality
 - Responsive design
+- English & Indonesian language versions
 
 ---
 
-Made with ❤️ for sheep farmers
+## Multilingual Support / Dukungan Multibahasa
+
+This application is available in multiple languages:
+- **English** - Main interface in English
+- **Indonesian (Bahasa Indonesia)** - Antarmuka lengkap dalam Bahasa Indonesia
+
+Simply click the appropriate version to switch languages.
+
+---
+
+Made with ❤️ for sheep farmers / Dibuat dengan ❤️ untuk peternak domba
+
+**Repository:** https://github.com/muhammadzuhuuron/sheep-farm-management
