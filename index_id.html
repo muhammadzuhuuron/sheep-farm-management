@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Manajemen Farm Domba</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>🐑 Sistem Manajemen Farm Domba</h1>
+                <p>Pencatatan Inventaris Farm & Keuangan Lengkap</p>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+            <button class="nav-btn active" data-tab="dashboard">Dasbor</button>
+            <button class="nav-btn" data-tab="inventory">Inventaris</button>
+            <button class="nav-btn" data-tab="finances">Keuangan</button>
+            <button class="nav-btn" data-tab="health">Catatan Kesehatan</button>
+            <button class="nav-btn" data-tab="reports">Laporan</button>
+        </nav>
+
+        <!-- Dashboard Tab -->
+        <section id="dashboard" class="tab-content active">
+            <h2>Ringkasan Farm</h2>
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <h3>Total Domba</h3>
+                    <p class="stat-number" id="totalSheep">0</p>
+                    <span class="stat-label">Ekor</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Nilai</h3>
+                    <p class="stat-number" id="totalValue">$0</p>
+                    <span class="stat-label">Perkiraan</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Pendapatan</h3>
+                    <p class="stat-number income" id="totalIncome">$0</p>
+                    <span class="stat-label">YTD</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Pengeluaran</h3>
+                    <p class="stat-number expense" id="totalExpenses">$0</p>
+                    <span class="stat-label">YTD</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Laba Bersih</h3>
+                    <p class="stat-number" id="netProfit">$0</p>
+                    <span class="stat-label">YTD</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Jantan</h3>
+                    <p class="stat-number" id="totalMales">0</p>
+                    <span class="stat-label">Jumlah</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Betina</h3>
+                    <p class="stat-number" id="totalFemales">0</p>
+                    <span class="stat-label">Jumlah</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Anak Domba</h3>
+                    <p class="stat-number" id="totalLambs">0</p>
+                    <span class="stat-label">Jumlah</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Inventory Tab -->
+        <section id="inventory" class="tab-content">
+            <h2>Manajemen Inventaris Domba</h2>
+            
+            <div class="form-section">
+                <h3>Tambah Domba Baru</h3>
+                <form id="sheepForm" class="form-grid">
+                    <input type="text" id="sheepId" placeholder="Nomor ID/Tag Domba" required>
+                    <input type="text" id="sheepName" placeholder="Nama (opsional)">
+                    <select id="sheepType" required>
+                        <option value="">Pilih Jenis</option>
+                        <option value="Ram">Domba Jantan</option>
+                        <option value="Ewe">Domba Betina</option>
+                        <option value="Lamb">Anak Domba</option>
+                    </select>
+                    <input type="date" id="sheepDob" placeholder="Tanggal Lahir" required>
+                    <input type="number" id="sheepWeight" placeholder="Berat (kg)" step="0.1">
+                    <input type="number" id="sheepValue" placeholder="Nilai Perkiraan ($)" step="0.01" required>
+                    <select id="sheepBreed" required>
+                        <option value="">Pilih Ras</option>
+                        <option value="Merino">Merino</option>
+                        <option value="Dorper">Dorper</option>
+                        <option value="Hampshire">Hampshire</option>
+                        <option value="Suffolk">Suffolk</option>
+                        <option value="Corriedale">Corriedale</option>
+                        <option value="Other">Lainnya</option>
+                    </select>
+                    <select id="sheepStatus" required>
+                        <option value="Active">Aktif</option>
+                        <option value="Pregnant">Hamil</option>
+                        <option value="Nursing">Menyusui</option>
+                        <option value="Injured">Cedera</option>
+                        <option value="Sold">Terjual</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Tambah Domba</button>
+                </form>
+            </div>
+
+            <div class="filter-section">
+                <h3>Filter Inventaris</h3>
+                <div class="filter-controls">
+                    <select id="filterStatus">
+                        <option value="">Semua Status</option>
+                        <option value="Active">Aktif</option>
+                        <option value="Pregnant">Hamil</option>
+                        <option value="Nursing">Menyusui</option>
+                        <option value="Injured">Cedera</option>
+                        <option value="Sold">Terjual</option>
+                    </select>
+                    <select id="filterType">
+                        <option value="">Semua Jenis</option>
+                        <option value="Ram">Jantan</option>
+                        <option value="Ewe">Betina</option>
+                        <option value="Lamb">Anak Domba</option>
+                    </select>
+                    <select id="filterBreed">
+                        <option value="">Semua Ras</option>
+                        <option value="Merino">Merino</option>
+                        <option value="Dorper">Dorper</option>
+                        <option value="Hampshire">Hampshire</option>
+                        <option value="Suffolk">Suffolk</option>
+                        <option value="Corriedale">Corriedale</option>
+                        <option value="Other">Lainnya</option>
+                    </select>
+                    <input type="search" id="searchSheep" placeholder="Cari berdasarkan ID atau Nama...">
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table id="sheepTable" class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nama</th>
+                            <th>Jenis</th>
+                            <th>Ras</th>
+                            <th>Umur</th>
+                            <th>Berat (kg)</th>
+                            <th>Nilai ($)</th>
+                            <th>Status</th>
+                            <th>Tgl Lahir</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="empty-state">
+                            <td colspan="10">Belum ada domba yang ditambahkan</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Finances Tab -->
+        <section id="finances" class="tab-content">
+            <h2>Manajemen Keuangan</h2>
+
+            <div class="finance-grid">
+                <div class="form-section">
+                    <h3>Catat Pendapatan</h3>
+                    <form id="incomeForm" class="form-vertical">
+                        <select id="incomeType" required>
+                            <option value="">Pilih Jenis Pendapatan</option>
+                            <option value="Wool Sale">Penjualan Bulu</option>
+                            <option value="Meat Sale">Penjualan Daging</option>
+                            <option value="Breeding Stock">Penjualan Stok Bibit</option>
+                            <option value="Milk Sale">Penjualan Susu</option>
+                            <option value="Other">Lainnya</option>
+                        </select>
+                        <input type="number" id="incomeAmount" placeholder="Jumlah ($)" step="0.01" required>
+                        <input type="date" id="incomeDate" required>
+                        <input type="text" id="incomeDescription" placeholder="Deskripsi (mis: jual 5 anak domba)">
+                        <button type="submit" class="btn btn-success">Catat Pendapatan</button>
+                    </form>
+                </div>
+
+                <div class="form-section">
+                    <h3>Catat Pengeluaran</h3>
+                    <form id="expenseForm" class="form-vertical">
+                        <select id="expenseType" required>
+                            <option value="">Pilih Jenis Pengeluaran</option>
+                            <option value="Feed">Pakan & Bijian</option>
+                            <option value="Veterinary">Perawatan Hewan</option>
+                            <option value="Medication">Obat-obatan</option>
+                            <option value="Shelter">Perbaikan Kandang</option>
+                            <option value="Equipment">Peralatan & Alat</option>
+                            <option value="Labor">Tenaga Kerja</option>
+                            <option value="Transport">Transportasi</option>
+                            <option value="Utilities">Utilitas</option>
+                            <option value="Other">Lainnya</option>
+                        </select>
+                        <input type="number" id="expenseAmount" placeholder="Jumlah ($)" step="0.01" required>
+                        <input type="date" id="expenseDate" required>
+                        <input type="text" id="expenseDescription" placeholder="Deskripsi">
+                        <button type="submit" class="btn btn-danger">Catat Pengeluaran</button>
+                    </form>
+                </div>
+            </div>
+
+            <h3>Riwayat Keuangan</h3>
+            <div class="finance-tabs">
+                <button class="finance-tab-btn active" data-finance-tab="all">Semua Transaksi</button>
+                <button class="finance-tab-btn" data-finance-tab="income">Pendapatan</button>
+                <button class="finance-tab-btn" data-finance-tab="expense">Pengeluaran</button>
+            </div>
+
+            <div class="table-responsive">
+                <table id="financialTable" class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Jenis</th>
+                            <th>Kategori</th>
+                            <th>Deskripsi</th>
+                            <th>Jumlah</th>
+                            <th>Saldo</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="empty-state">
+                            <td colspan="7">Belum ada transaksi yang dicatat</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Health Records Tab -->
+        <section id="health" class="tab-content">
+            <h2>Catatan Kesehatan & Vaksinasi</h2>
+
+            <div class="form-section">
+                <h3>Tambah Catatan Kesehatan</h3>
+                <form id="healthForm" class="form-grid">
+                    <select id="healthSheepId" required>
+                        <option value="">Pilih Domba</option>
+                    </select>
+                    <input type="date" id="healthDate" required>
+                    <select id="healthType" required>
+                        <option value="">Pilih Jenis</option>
+                        <option value="Vaccination">Vaksinasi</option>
+                        <option value="Treatment">Pengobatan</option>
+                        <option value="Check-up">Pemeriksaan</option>
+                        <option value="Birth">Kelahiran</option>
+                        <option value="Death">Kematian</option>
+                    </select>
+                    <input type="text" id="healthDescription" placeholder="Detail (nama vaksin, penyakit, dll)" required>
+                    <input type="number" id="healthCost" placeholder="Biaya ($)" step="0.01">
+                    <textarea id="healthNotes" placeholder="Catatan tambahan"></textarea>
+                    <button type="submit" class="btn btn-primary">Tambah Catatan</button>
+                </form>
+            </div>
+
+            <div class="table-responsive">
+                <table id="healthTable" class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID Domba</th>
+                            <th>Nama</th>
+                            <th>Tanggal</th>
+                            <th>Jenis</th>
+                            <th>Deskripsi</th>
+                            <th>Biaya ($)</th>
+                            <th>Catatan</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="empty-state">
+                            <td colspan="8">Belum ada catatan kesehatan</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Reports Tab -->
+        <section id="reports" class="tab-content">
+            <h2>Laporan & Analitik Keuangan</h2>
+
+            <div class="reports-grid">
+                <div class="report-card">
+                    <h3>Pendapatan Bulanan</h3>
+                    <div class="chart-container">
+                        <canvas id="incomeChart"></canvas>
+                    </div>
+                </div>
+                <div class="report-card">
+                    <h3>Pengeluaran Bulanan</h3>
+                    <div class="chart-container">
+                        <canvas id="expenseChart"></canvas>
+                    </div>
+                </div>
+                <div class="report-card">
+                    <h3>Kategori Pengeluaran</h3>
+                    <div class="chart-container">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+                <div class="report-card">
+                    <h3>Distribusi Jenis Domba</h3>
+                    <div class="chart-container">
+                        <canvas id="typeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="export-section">
+                <h3>Ekspor Data</h3>
+                <div class="export-buttons">
+                    <button id="exportInventory" class="btn btn-primary">Ekspor Inventaris (CSV)</button>
+                    <button id="exportFinances" class="btn btn-primary">Ekspor Keuangan (CSV)</button>
+                    <button id="exportHealth" class="btn btn-primary">Ekspor Catatan Kesehatan (CSV)</button>
+                    <button id="printReport" class="btn btn-secondary">Cetak Laporan</button>
+                </div>
+            </div>
+
+            <div class="summary-section">
+                <h3>Ringkasan Tahun Ini</h3>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <span>Total Pendapatan:</span>
+                        <strong id="summaryIncome">$0</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Total Pengeluaran:</span>
+                        <strong id="summaryExpenses">$0</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Laba/Rugi Bersih:</span>
+                        <strong id="summaryProfit">$0</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Margin Keuntungan:</span>
+                        <strong id="summaryMargin">0%</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Edit Domba</h2>
+            <form id="editForm" class="form-grid">
+                <input type="hidden" id="editId">
+                <input type="text" id="editSheepId" placeholder="Nomor ID/Tag Domba" required>
+                <input type="text" id="editSheepName" placeholder="Nama (opsional)">
+                <select id="editSheepType" required>
+                    <option value="">Pilih Jenis</option>
+                    <option value="Ram">Domba Jantan</option>
+                    <option value="Ewe">Domba Betina</option>
+                    <option value="Lamb">Anak Domba</option>
+                </select>
+                <input type="date" id="editSheepDob" required>
+                <input type="number" id="editSheepWeight" placeholder="Berat (kg)" step="0.1">
+                <input type="number" id="editSheepValue" placeholder="Nilai Perkiraan ($)" step="0.01" required>
+                <select id="editSheepBreed" required>
+                    <option value="">Pilih Ras</option>
+                    <option value="Merino">Merino</option>
+                    <option value="Dorper">Dorper</option>
+                    <option value="Hampshire">Hampshire</option>
+                    <option value="Suffolk">Suffolk</option>
+                    <option value="Corriedale">Corriedale</option>
+                    <option value="Other">Lainnya</option>
+                </select>
+                <select id="editSheepStatus" required>
+                    <option value="Active">Aktif</option>
+                    <option value="Pregnant">Hamil</option>
+                    <option value="Nursing">Menyusui</option>
+                    <option value="Injured">Cedera</option>
+                    <option value="Sold">Terjual</option>
+                </select>
+                <div class="modal-buttons">
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    <button type="button" class="btn btn-secondary" id="deleteBtn">Hapus</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
